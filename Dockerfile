@@ -33,10 +33,10 @@ RUN npm install
 COPY . .
 
 #Build tailwind css
-RUN npx tailwindcss -i ./src/styles/tailwind.css -o ./src/public/css/tailwind.css --minify
+RUN npm run build:tailwind
 
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Command to run the app
-CMD ["node", "index.js"]
+CMD [ "npm", "start" ]

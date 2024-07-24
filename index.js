@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(express.static('src/public'));
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,7 +25,7 @@ app.post('/screenshot', async (req, res) => {
 
         const element = await page.$('body');
         if (element) {
-            const screenshotPath = path.join(__dirname,'src', 'public', 'screenshots', 'screenshot.png');
+            const screenshotPath = path.join(__dirname, 'public', 'screenshots', 'screenshot.png');
             await element.screenshot({ path: screenshotPath });
             res.json({ screenshot: '/screenshots/screenshot.png' });
         } else {
