@@ -6,3 +6,5 @@ services:
     volumes:
       - .:/root/webss
       - /root/webss/node_modules
+    extra_hosts:
+      - "pung.pw:194.195.86.118"
