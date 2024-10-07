@@ -39,6 +39,23 @@ app.post('/screenshot', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
+
+const gracefulShutdown = async () => {
+    console.log('Received shutdown signal, shutting down gracefully...');
+    server.close(async () => {
+        console.log('Closed out remaining connections.');
+        process.exit(0);
+    });
+
+    setTimeout(() => {
+        console.error('Forcing shutdown due to timeout.');
+        process.exit(1);
+    }, 10000).unref(); 
+
+};
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
